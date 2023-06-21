@@ -21,6 +21,7 @@ resource "aws_subnet" "private" {
     vpc_id = aws_vpc.test.id
     cidr_block = cidrsubnet(var.cidr_block, var.subnet_cidr_bits, var.netnumii)
     availability_zone = var.pri-avail
+    map_public_ip_on_launch = true
     tags = {
       "name" : "${var.name}-privateSN"
     }
@@ -50,6 +51,11 @@ resource "aws_route_table_association" "access" {
   route_table_id = aws_route_table.yes.id
 }
 
+resource "aws_route_table_association" "acc" {
+  subnet_id      = aws_subnet.private.id
+  route_table_id = aws_route_table.yes.id
+}
+
 resource "aws_eip" "eip" {
     vpc = true
     tags = {
@@ -69,5 +75,5 @@ resource "aws_nat_gateway" "main" {
 resource "aws_route" "main" {
   route_table_id = aws_route_table.yes.id
   nat_gateway_id = aws_nat_gateway.main.id
-  destination_cidr_block = "0.0.0.0/16"
+  destination_cidr_block = "0.0.0.0/0"
 }

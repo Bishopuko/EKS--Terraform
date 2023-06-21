@@ -24,13 +24,13 @@ variable "pub-avail" {
     default = "us-east-2a"  
 }
 variable "pri-avail" {
-    default = "us-east-2c"
+    default = "us-east-2b"
   
 }
 variable "name" {
-    default = "FirstEKS"
+    default = "ther"
 }
 variable "node-group" {
-    default = "FirstEKS-NodeGP"
+    default = "ther-NodeGP"
   
 }
